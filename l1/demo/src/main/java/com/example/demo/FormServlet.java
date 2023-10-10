@@ -1,10 +1,6 @@
 package com.example.demo;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
@@ -26,7 +22,7 @@ public class FormServlet extends HttpServlet {
         out.println("<title>Form for the number of vertices</title>");
         out.println("</head>");
         out.println("<body>");
-        out.println("<form action=\"http://localhost:8080/demo-1.0-SNAPSHOT/generate-tree\" method=\"GET\">");
+        out.println("<form action=\"/generate-tree\" method=\"GET\">");
         out.println("<label for=\"field\">Field:</label>");
         out.println("<input type=\"text\" id=\"numVertices\" name=\"numVertices\" placeholder=\"Enter the number of vertices\">");
         out.println("<br>");

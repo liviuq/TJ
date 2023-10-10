@@ -22,7 +22,9 @@ public class TreeAdjacencyMatrixServlet extends HttpServlet {
         // extract the number from the request
         try {
             numVertices = Integer.parseInt(request.getParameter("numVertices"));
-        } catch (NumberFormatException ignored) {
+        } catch (NumberFormatException e) {
+            // the parameter is not a valid number
+            logger.warning("Invalid number of vertices: " + request.getParameter("numVertices"));
         }
 
         // create a PrintWriter to send the response back
@@ -92,22 +94,28 @@ public class TreeAdjacencyMatrixServlet extends HttpServlet {
         logger.info("Parameters: " + parameters);
     }
 
-    // Function to generate a random tree adjacency matrix
+    // function to create a random adjacency matrix
     private int[][] generateRandomTree(int numVertices) {
+
+        // initialize the random number generator
         Random rand = new Random();
+
+        // initialize the adjacency matrix
         int[][] adjacencyMatrix = new int[numVertices][numVertices];
 
-        for (int i = numVertices - 1; i < numVertices * 2; i++) {
-            int parent = rand.nextInt(numVertices);
-            int child = rand.nextInt(numVertices);
+        // generate the edges of the tree
+        for (int i = 0; i < numVertices - 1; i++) {
+            int parent, child;
 
-
-            while (parent == child || adjacencyMatrix[parent][child] == 1) {
+            // generate a valid parent and child vertex pair
+            do {
                 parent = rand.nextInt(numVertices);
                 child = rand.nextInt(numVertices);
-            }
+            } while (parent == child || adjacencyMatrix[parent][child] == 1);
 
-            if(!createsCycle(adjacencyMatrix, numVertices, parent, child)){
+            // verify if the edge creates a cycle
+            if (!createsCycle(adjacencyMatrix, numVertices, parent, child)) {
+                // if they do not create cycle, link the parent with the child
                 adjacencyMatrix[parent][child] = 1;
                 adjacencyMatrix[child][parent] = 1;
             }
@@ -116,26 +124,43 @@ public class TreeAdjacencyMatrixServlet extends HttpServlet {
         return adjacencyMatrix;
     }
 
-    private boolean createsCycle(int[][] adjacencyMatrix, int numVertices, int parent, int child) {
-        boolean[] visited = new boolean[numVertices];
-        visited[parent] = true;
-        return dfs(adjacencyMatrix, numVertices, child, visited, parent);
-    }
-
-    private boolean dfs(int[][] adjacencyMatrix, int numVertices, int current, boolean[] visited, int parent) {
-
+    private boolean depthFirstSearch(int[][] adjacencyMatrix, int numVertices, int current, boolean[] visited, int parent) {
+        /*
+         * This method returns true if
+         *
+         * */
+        // mark the current vertex as visited
         visited[current] = true;
+
+        // recursively visit all the adjacent vertices
         for (int i = 0; i < numVertices; i++) {
+
+            // if the current vertex is adjacent to the current i'th vertex
             if (adjacencyMatrix[current][i] == 1) {
+
+                // if the current vertex has not been visited
                 if (!visited[i]) {
-                    if (dfs(adjacencyMatrix, numVertices, i, visited, current)) {
+
+                    // visit it
+                    if (depthFirstSearch(adjacencyMatrix, numVertices, i, visited, current)) {
                         return true;
                     }
                 } else if (i != parent) {
+                    // vertex has been visited => cycle detected
                     return true;
                 }
             }
         }
+
+        // no cycle detected
         return false;
     }
+
+    private boolean createsCycle(int[][] adjacencyMatrix, int numVertices, int parent, int child) {
+        boolean[] visited = new boolean[numVertices];
+        visited[parent] = true;
+        return depthFirstSearch(adjacencyMatrix, numVertices, child, visited, parent);
+    }
+
+
 }
