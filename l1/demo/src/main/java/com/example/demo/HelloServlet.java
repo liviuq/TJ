@@ -30,10 +30,16 @@ public class HelloServlet extends HttpServlet {
         // sort number_deconstructed
         Collections.sort(number_deconstructed);
 
-        // Hello
+        // Get the response writer
         PrintWriter out = response.getWriter();
+
         out.println("<html><body>");
-        out.println("<h1>" + number_deconstructed.toString() + "</h1>");
+        out.println("<h1>my ordered list</h1>");
+        out.println("<ol>");
+        for (String digit : number_deconstructed) {
+            out.println("<li>" + digit + "</li>");
+        }
+        out.println("</ol>");
         out.println("</body></html>");
     }
 
