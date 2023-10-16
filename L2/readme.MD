@@ -11,4 +11,6 @@ Am gandit aplicatia intr-un mod orientat obiect:
 - am facut un servlet ce prelucreaza graful
 - am facut un filtru web se logheaza toate request-uurile
 
-# Bonus (TBD)
+# Bonus
+- am facut web listener ul
+- am facut cookie-uri pentru fiecare proprietate setata de catre user
