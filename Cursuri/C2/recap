@@ -1,0 +1,38 @@
+C2 recap:
+care sunt componentele clasice la nivelul web?
+servlet, jsp, taguri cu o anumita functionalitate
+
+cum faci un tag propriu? clasa extends taghandler, are metoda doTag
+
+java server faces e bazata pe tag uri
+
+intercepor design pattern: filters web se interpun intre client si componenta noastra de server
+avem un lant de filtrare: preprocesare, procesare, postprocesare(folosesti design pattern Decorator ca sa encapsulezi fluzul de iesire catre client)
+
+Web Listeners:
+reactioneaza la evenimente din aplicatie
+server genereaza obiecte de tip event si le "arunca" obiectelor interesate de acel event
+Scop: de a crea obiecte reutilizabile
+Le activam in web.xml sau le adnotez cu @WebListener
+
+pt quiz: cand am un event listener, am un eventobject. ex. daca am ACtionListener, am undeva in cod ACtionEvent
+
+ServerContextListener == un listener pt intreaga aplicatie GEN
+
+Clasele pe care le adnotam se vor numi "Server-side managed classes". Daca nu am adnotari
+
+intrebare de examen: filtrele si listener se mai intersecteaza. as pute afolosi un sessionCreated ca sa vad daca s a facut o sesiune noua? cum pot face un filtru care imi prinde noile sesiuni? fac filtru si filtrez dupa sessionCreate: daca gasesc, atunci am o sesiune noua.
+
+ServletContextListener -> cand porneste aplicatia
+ServletRequestListener -> cand primesc un request
+HttpSessionListener -> cand se creeaza o sesiune
+
+HttpSessionBindingListener -> e cel mai fin listener
+
+Session Passivation and Activation:
+-----------------------------------
+se ocupa cu management ul sesiunilor: in loc de o sesiune de 30 min, pot avea 8h. 
+Passivare: server ia sesiunea, o serializeaza si o pune pe disk. cand revii la laptop, server ia datele de pe disk si iti da sesiunea inapoi.
+
+Async listener: procesare asincrona a cererilor.
+In java servlet avem un thread per request client

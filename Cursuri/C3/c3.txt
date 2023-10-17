@@ -1,0 +1,32 @@
+Java server faces:
+------------------
+
+JSP nu mai e promovat in niciun fel. crearea de content web e recomandata sa fie facuta cu JSF.
+JSF: 
+- tehnologie server-centered (ca spring)
+
+Framweorks sunt seturi de design patterns, apis si runtime implementations ca sa ne simplifice prcesul de construire a aplicatiilor.
+
+User interface design:
+- input ocntrols, nav components, informational components, containers
+
+Front controller:
+in loc ca fiecare client sa faca request direct la server, toate request urile vor ajunge la un Front Controller (dirijor) si le face el dispatch la server. 
+
+JSF:
+- server side component framework pt a construi web applications
+- fiecare server de app (glassfish, tomcat) are implementarea lui proprie de JSF: ex. wildfly are RichFaces sau cv de genu
+- avem componente server side
+- biblioteci de taguri html
+- model bazat pe evenimente (AJAX)
+- simplifies the process of building and maintaining web apps
+
+ServerSide UI:
+- client face request la web container -> myFacelet.xhtml genereaza "component tree" -> view primeste componentele -> trimite response la client
+- daca ex. completez un tabel pe o pagina web si navighez la o alta pagina, cand ma intorc la pagina cu tabelul, el va ramane completat ca si cum nu am plecat niciodata de pe pagina(serverside UI tine minte fiecare obiect pe care il trimite client ul la server)
+
+Implementarile JSF(au ajax): Primefaces, IceFaces, JBoss
+
+ca sa fac un PersonBean, o pun cu @MAnaged ca sa mi o instantieze serverul, nu eu. @Session
+@SessionScoped == tine in viata obiectul cat timp e in viata sesiunea
+Adnotari din JSF sunt deprecated, foloseste le pe cele din ummmmmm XD am uitat
