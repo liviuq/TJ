@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import java.io.Serializable;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -33,12 +34,12 @@ public class Student implements Serializable {
                 while (resultSet.next()) {
                     Student student = new Student();
                     student.setName(resultSet.getString("name"));
-                    Array arr = resultSet.getArray("projects_ids"); //problems here
-                    List<Integer> temp = new ArrayList<>();
-                    for (value : arr) {
-                        temp.add(value);
+                    Array projectIdsArray = resultSet.getArray("projects_ids");
+                    if (projectIdsArray != null) {
+                        Integer[] projectIds = (Integer[]) projectIdsArray.getArray();
+                        List<Integer> projectIdsList = Arrays.asList(projectIds);
+                        student.setProjects(new ArrayList<>(projectIdsList));
                     }
-                    student.setProjects((List<Integer>) arr.getArray());
                     students.add(student);
                 }
                 preparedStatement.close();
