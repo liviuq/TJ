@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Laboratorul 3</title>
+</h:head>
+<h:body>
+<!--    <h:form>-->
+<!--        <h2>Inregistreaza student</h2>-->
+
+<!--        <p:inputText id="name" value="#{student.name}" placeholder="Enter your name" />-->
+<!--        <p:commandButton value="Submit" action="#{student.submit}" update="outputPanel" />-->
+
+<!--        <br />-->
+<!--    </h:form>-->
+
+
+    <p:dataTable var="project" value="#{projectBean.projects}" emptyMessage="No projects found">
+        <p:column headerText="Project ID">
+            <h:outputText value="#{project.project_id}" />
+        </p:column>
+        <p:column headerText="Project Name">
+            <h:outputText value="#{project.name}" />
+        </p:column>
+        <p:column headerText="Project Category">
+            <h:outputText value="#{project.category}" />
+        </p:column>
+        <p:column headerText="Project Description">
+            <h:outputText value="#{project.description}" />
+        </p:column>
+        <p:column headerText="Project Deadline">
+            <h:outputText value="#{project.deadline}" />
+        </p:column>
+    </p:dataTable>
+
+
+    <h:form id="projectForm">
+        <h2>Project Submission</h2>
+
+        <p:outputLabel for="name" value="Project Name:" />
+        <p:inputText id="name" value="#{project.name}" required="true" />
+        <br/>
+        <p:outputLabel for="category" value="Category:" />
+        <p:inputText id="category" value="#{project.category}" required="true" />
+        <br/>
+        <p:outputLabel for="description" value="Description:" />
+        <p:inputTextarea id="description" value="#{project.description}" rows="5" required="true" />
+        <br/>
+        <p:outputLabel for="deadline" value="Deadline:" />
+        <p:calendar id="deadline" value="#{project.deadline}" required="true" showOn="button" pattern="dd/MM/yyyy" />
+        <br/>
+        <p:commandButton value="Submit" action="#{project.submit}"/>
+        <br/>
+        <p:messages showDetail="true" autoUpdate="true" />
+    </h:form>
+</h:body>
+</html>

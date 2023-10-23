@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Studenti</title>
+</h:head>
+<h:body>
+    <p:dataTable var="student" value="#{studentBean.students}" emptyMessage="No students found">
+        <p:column headerText="student ID">
+            <h:outputText value="#{student.name}" />
+        </p:column>
+        <p:column headerText="Student projects">
+            <h:outputText value="#{student.projects}" />
+        </p:column>
+    </p:dataTable>
+
+    <h1>Submit a student to some projects</h1>
+    <p:commandButton value="Show" type="button" icon="pi pi-external-link" onclick="PF('dlg2').show()"/>
+
+    <p:dialog header="Header" widgetVar="dlg2" minHeight="40" width="350" showEffect="fade" modal="true">
+        <h:form id="studentForm">
+            <h2>Student Submission</h2>
+            <p:outputLabel for="name" value="Student Name:" />
+            <p:inputText id="name" value="#{student.name}" required="true" />
+            <br/>
+            <p:outputLabel for="category" value="Category:" />
+            <p:inputText id="category" value="#{project.category}" required="true" />
+            <p:commandButton value="Submit" action="#{student.submit}"/>
+            <br/>
+            <p:messages showDetail="true" autoUpdate="true" />
+        </h:form>
+    </p:dialog>
+</h:body>
+</html>
