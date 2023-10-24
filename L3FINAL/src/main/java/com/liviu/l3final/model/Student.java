@@ -4,6 +4,7 @@ import com.liviu.l3final.database.DatabaseConnector;
 import lombok.Data;
 
 import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
 import javax.persistence.Entity;
 import java.io.Serializable;
 import java.sql.*;
@@ -11,10 +12,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Entity
+@ManagedBean
 @ApplicationScoped
 @Data
 public class Student implements Serializable {
+    private Long student_id;
     private String name;
     private List<Integer> projects;
 
@@ -33,6 +35,7 @@ public class Student implements Serializable {
 
                 while (resultSet.next()) {
                     Student student = new Student();
+                    student.setStudent_id(resultSet.getLong("student_id"));
                     student.setName(resultSet.getString("name"));
                     Array projectIdsArray = resultSet.getArray("projects_ids");
                     if (projectIdsArray != null) {
@@ -49,6 +52,23 @@ public class Student implements Serializable {
             }
         }
         return students;
+    }
+
+    public static void deleteStudent(Long student_id) throws ClassNotFoundException {
+        Connection connection = DatabaseConnector.connect();
+        PreparedStatement preparedStatement = null;
+        if (connection != null) {
+            try {
+                String deleteQuery = "DELETE FROM students WHERE student_id = ?";
+                preparedStatement = connection.prepareStatement(deleteQuery);
+                preparedStatement.setLong(1, student_id);
+                int rowsAffected = preparedStatement.executeUpdate();
+                preparedStatement.close();
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     // submit

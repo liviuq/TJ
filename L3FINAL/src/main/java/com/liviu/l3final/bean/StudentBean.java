@@ -24,4 +24,14 @@ public class StudentBean implements Serializable {
             e.printStackTrace();
         }
     }
+
+    public void deleteStudent(Long student_id) {
+        if (student_id != null) {
+            try {
+                Student.deleteStudent(student_id);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

@@ -10,25 +10,30 @@
 </h:head>
 <h:body>
     <p:dataTable var="student" value="#{studentBean.students}" emptyMessage="No students found">
-        <p:column headerText="student ID">
+        <p:column headerText="Student ID">
             <h:outputText value="#{student.name}" />
         </p:column>
         <p:column headerText="Student projects">
             <h:outputText value="#{student.projects}" />
         </p:column>
+<!--        <p:column headerText="Actions">-->
+<!--            <p:commandButton value="Delete" icon="pi pi-times" action="#{studentBean.deleteStudent(student.student_id)}"/>-->
+<!--        </p:column>-->
     </p:dataTable>
 
     <h1>Submit a student to some projects</h1>
     <p:commandButton value="Show" type="button" icon="pi pi-external-link" onclick="PF('dlg2').show()"/>
 
-    <p:dialog header="Header" widgetVar="dlg2" minHeight="40" width="350" showEffect="fade" modal="true">
+    <p:dialog header="Student Submission" widgetVar="dlg2" minHeight="40" width="350" showEffect="fade" modal="true">
         <h:form id="studentForm">
-            <h2>Student Submission</h2>
             <p:outputLabel for="name" value="Student Name:" />
+            <br/>
             <p:inputText id="name" value="#{student.name}" required="true" />
             <br/>
             <p:outputLabel for="category" value="Category:" />
+            <br/>
             <p:inputText id="category" value="#{project.category}" required="true" />
+            <br/>
             <p:commandButton value="Submit" action="#{student.submit}"/>
             <br/>
             <p:messages showDetail="true" autoUpdate="true" />

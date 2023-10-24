@@ -60,6 +60,23 @@ public class Project implements Serializable {
         return projects;
     }
 
+    public static void deleteProject(Long project_id) throws ClassNotFoundException, SQLException {
+        Connection connection = DatabaseConnector.connect();
+        PreparedStatement preparedStatement = null;
+        if (connection != null) {
+            try {
+                String deleteQuery = "DELETE FROM projects WHERE project_id = ?";
+                preparedStatement = connection.prepareStatement(deleteQuery);
+                preparedStatement.setLong(1, project_id);
+                int rowsAffected = preparedStatement.executeUpdate();
+                preparedStatement.close();
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     // add a project to the database
     public String submit() throws ClassNotFoundException {
         Connection connection = DatabaseConnector.connect();
