@@ -1,0 +1,8 @@
+jsf: exista un arbore de componente: UIComponentBaes subclass of UIComponent
+
+UIComponent : au rolul de a specifica FUNCTIONALITATEA
+Model comportamental: 
+ce design pattern face switch la runtime intre algoritmi: strategy
+UICommand: HtmlCommandButtom, HtmlCommandLink (are cel putin 2)
+
+cum expui catre pagina jsf un bean? R: @Named(nerecomandat) si @SessionScoped

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+<h:body>
+    <p:card style="width: 25rem; margin-bottom: 2em">
+        <f:facet name="title">
+            View the present students
+        </f:facet>
+    </p:card>
+
+    <!-- Display Students -->
+    <p:dataTable var="student" value="#{studentBean.getAllStudents()}" emptyMessage="No students found">
+        <p:column headerText="Student ID">
+            <h:outputText value="#{student.name}" />
+        </p:column>
+        <p:column headerText="Student projects">
+            <h:outputText value="#{student.projects}" />
+        </p:column>
+        <p:column headerText="Actions">
+            <p:commandButton value="Delete" icon="pi pi-times" action="#{studentBean.deleteStudent(student.student_id)}"/>
+        </p:column>
+    </p:dataTable>
+
+    <p:card style="width: 25rem; margin-bottom: 2em">
+        <f:facet name="title">
+            View the available projects
+        </f:facet>
+    </p:card>
+
+    <p:dataTable var="project" value="#{projectBean.getAllProjects()}" emptyMessage="No projects found">
+        <p:column headerText="Project ID">
+            <h:outputText value="#{project.project_id}" />
+        </p:column>
+        <p:column headerText="Project Name">
+            <h:outputText value="#{project.name}" />
+        </p:column>
+        <p:column headerText="Project Category">
+            <h:outputText value="#{project.category}" />
+        </p:column>
+        <p:column headerText="Project Description">
+            <h:outputText value="#{project.description}" />
+        </p:column>
+        <p:column headerText="Project Deadline">
+            <h:outputText value="#{project.deadline}" />
+        </p:column>
+        <p:column headerText="Actions">
+            <p:commandButton value="Delete" icon="pi pi-times" action="#{projectBean.deleteProject(project.project_id)}"/>
+        </p:column>
+    </p:dataTable>
+
+    <!-- Edit Dialogs for Students and Projects -->
+    <ui:include src="dataEdit.xhtml" />
+</h:body>
+
+</html>
